@@ -39,7 +39,7 @@
   "url": "#{URL}#",
   "manifest": "#{MANIFEST}#",
   "download": "#{DOWNLOAD}#",
-  "license": "LICENSE",
+  "license": "UNLICENSE",
   "readme": "README.md",
   "media": []
 }
