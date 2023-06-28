@@ -69,6 +69,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # Build module
+      - name: Build Module
+        run: |
+          npm run build
+
       # Extract version embedded in the tag.
       # This step expects the tag to be one of the following formats:
       #   - "v<major>.<minor>.<patch>" (e.g., "v1.2.3")
