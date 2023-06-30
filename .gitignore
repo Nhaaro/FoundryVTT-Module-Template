@@ -20,3 +20,6 @@ obj/
 foundry.js
 
 dist
+
+# This project
+foundryconfig.json
