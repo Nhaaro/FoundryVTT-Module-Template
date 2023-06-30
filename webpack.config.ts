@@ -1,9 +1,11 @@
 /* eslint-disable */
+import * as fs from "fs-extra";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import CopyPlugin from "copy-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
-import { join, resolve } from "path";
+import path, { join, resolve } from "path";
 import { sync } from "glob";
+import { MODULE_NAME } from "./src/constants.ts";
 
 /// <reference path="node_modules/webpack-dev-server/types/lib/Server.d.ts"/>
 import type { Configuration } from "webpack";
@@ -14,6 +16,24 @@ const allTemplates = () => {
     .map((file) => `"modules/template/templates/${file}"`)
     .join(", ");
 };
+
+const [outDir, foundryUri] = ((): [string, string] => {
+  const configPath = resolve(process.cwd(), "foundryconfig.json");
+  const config = fs.readJSONSync(configPath, { throws: false });
+  const outDir =
+    config instanceof Object
+      ? path.join(
+          config.dataPath,
+          "Data",
+          "modules",
+          config.systemName ?? MODULE_NAME
+        )
+      : path.join(__dirname, "dist/");
+  const foundryUri =
+    (config instanceof Object ? String(config.foundryUri ?? "") : null) ||
+    "http://localhost:30000";
+  return [outDir, foundryUri];
+})();
 
 export default (env: Configuration) => {
   const defaults: Configuration = {
@@ -50,8 +70,9 @@ export default (env: Configuration) => {
     },
     output: {
       filename: "./scripts/module.js",
-      path: resolve(__dirname, "dist"),
+      path: outDir,
       publicPath: "",
+      clean: true,
     },
     devServer,
     module: {
