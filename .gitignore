@@ -16,10 +16,14 @@ node_modules/
 bin/
 obj/
 
-# If you add foundry.js for autocomplete
-foundry.js
+# build
+dist/
 
-dist
+# Foundry bundle
+foundry.js
+# Pathfinder bundle
+main.bundle.js
 
 # This project
+static/packs/
 foundryconfig.json
