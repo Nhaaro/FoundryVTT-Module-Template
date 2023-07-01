@@ -19,7 +19,15 @@
     }
   ],
   "relationships": {
-    "systems": [],
+    "systems": [
+      {
+        "id": "pf2e",
+        "compatibility": {
+          "minimum": "4.0.0"
+        },
+        "type": "system"
+      }
+    ],
     "requires": []
   },
   "esmodules": ["#{MODULE.ID}#.mjs"],
