@@ -43,10 +43,8 @@ export default (env: Configuration) => {
     hot: true,
     proxy: [
       {
-        context: (pathname) => {
-          return !pathname.match("^/sockjs");
-        },
-        target: "http://localhost:30000",
+        context: (pathname) => !pathname.match("^/ws"),
+        target: foundryUri,
         ws: true,
       },
     ],
