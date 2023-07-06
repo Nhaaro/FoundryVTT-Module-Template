@@ -22,12 +22,7 @@ const [outDir, foundryUri] = ((): [string, string] => {
   const config = fs.readJSONSync(configPath, { throws: false });
   const outDir =
     config instanceof Object
-      ? path.join(
-          config.dataPath,
-          "Data",
-          "modules",
-          config.systemName ?? MODULE_NAME
-        )
+      ? path.join(config.dataPath, "modules", config.systemName ?? MODULE_NAME)
       : path.join(__dirname, "dist/");
   const foundryUri =
     (config instanceof Object ? String(config.foundryUri ?? "") : null) ||
