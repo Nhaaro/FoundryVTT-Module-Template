@@ -1,44 +1,40 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
     "baseUrl": ".",
-    "esModuleInterop": true,
-    "target": "es2022",
-    "module": "esnext",
-    "moduleResolution": "node16",
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "allowUmdGlobalAccess": true,
-    "sourceMap": true,
-    "allowJs": true,
+    "rootDir": ".",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "Node16",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true, //Do I need this?
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "removeComments": false,
+    "sourceMap": true,
+
+    /* Linting */
     "strict": true,
     "strictNullChecks": true /* Enable strict null checks. */,
     "strictFunctionTypes": true /* Enable strict checking of function types. */,
     "strictBindCallApply": true /* Enable strict 'bind', 'call', and 'apply' methods on functions. */,
     "strictPropertyInitialization": true /* Enable strict checking of property initialization in classes. */,
+    "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
     "noImplicitThis": false /* Raise error on 'this' expressions with an implied 'any' type. */,
     "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
-    "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
-    "allowSyntheticDefaultImports": true,
     "paths": {},
-    "types": [
-      "gsap",
-      "handlebars",
-      "jest",
-      "jquery",
-      "node",
-      "tooltipster",
-      "vite/client",
-      "webpack-env"
-    ],
-    "typeRoots": ["node_modules/@types", "node_modules/handlebars"],
-    "removeComments": false,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "useDefineForClassFields": true
+    "types": ["jquery", "node"],
+    "typeRoots": ["node_modules/@types", "node_modules/handlebars"]
   },
-  "exclude": ["node_modules", "webpack.config.js", "dist"],
   "watchOptions": {
     "excludeDirectories": ["packs/data/", "static/packs/"]
   }
