@@ -21,8 +21,7 @@
     "systems": [],
     "requires": []
   },
-  "esmodules": ["scripts/module.js"],
-  "scripts": ["scripts/lib/lib.js"],
+  "esmodules": ["vendor.mjs", "#{MODULE.ID}#.mjs"],
   "styles": ["styles/module.css"],
   "languages": [
     {
