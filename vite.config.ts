@@ -6,6 +6,7 @@ import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
 import packageJSON from "./package.json" assert { type: "json" };
+import handlebarsReload from "./tools/vite/handlebars-hmr.ts";
 import { MODULE_NAME } from "src/constants.ts";
 
 const [outDir] = (() => {
@@ -21,7 +22,12 @@ const [outDir] = (() => {
 const config = defineConfig(({ command, mode }) => {
   const buildMode = mode === "production" ? "production" : "development";
 
-  const plugins = [checker({ typescript: true }), tsconfigPaths()];
+  const plugins = [
+    checker({ typescript: true }),
+    tsconfigPaths(),
+    handlebarsReload(),
+  ];
+
   // Handle minification after build to allow for tree-shaking and whitespace minification
   // "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
   // pure annotations and breaks tree-shaking."
