@@ -1,3 +1,5 @@
+import "../styles/module.css";
+
 import { MODULE_NAME } from "src/constants.ts";
 
 type Payload<Action extends string> = {
