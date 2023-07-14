@@ -109,7 +109,7 @@ const config = defineConfig(({ command, mode }) => {
     fs.writeFileSync(`./styles/${MODULE_NAME}.css`, `/** ${message} */\n`);
     fs.writeFileSync(
       `./${MODULE_NAME}.mjs`,
-      `/** ${message} */\n\nimport "./src/${MODULE_NAME}.ts";\n`
+      `/** ${message} */\n\nimport "./src/module.ts";\n`
     );
     fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
   }
@@ -150,7 +150,7 @@ const config = defineConfig(({ command, mode }) => {
       minify: false,
       lib: {
         name: MODULE_NAME,
-        entry: "src/scripts/module.ts",
+        entry: "src/module.ts",
         formats: ["es"],
         fileName: MODULE_NAME,
       },

@@ -1,4 +1,4 @@
-import "../styles/module.css";
+import "./styles/module.css";
 
 import { MODULE_NAME } from "src/constants.ts";
 

@@ -1,5 +1,5 @@
 import * as io from "socket.io";
-import { SocketPayload } from "src/scripts/module.ts";
+import { SocketPayload } from "src/module.ts";
 
 interface ClientToServerEvents {
   "module.#{MODULE.ID}#": (payload: SocketPayload) => void;
