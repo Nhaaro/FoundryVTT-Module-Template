@@ -22,7 +22,7 @@
     "systems": [],
     "requires": []
   },
-  "esmodules": ["vendor.mjs", "#{MODULE.ID}#.mjs"],
+  "esmodules": ["#{MODULE.ID}#.mjs"],
   "styles": ["#{MODULE.ID}#.css"],
   "languages": [
     {
