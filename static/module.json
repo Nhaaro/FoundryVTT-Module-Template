@@ -23,7 +23,7 @@
     "requires": []
   },
   "esmodules": ["vendor.mjs", "#{MODULE.ID}#.mjs"],
-  "styles": ["styles/module.css"],
+  "styles": ["#{MODULE.ID}#.css"],
   "languages": [
     {
       "lang": "en",

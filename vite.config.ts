@@ -156,8 +156,10 @@ const config = defineConfig(({ command, mode }) => {
       },
       rollupOptions: {
         output: {
+          // vite is wrong about this type, if we return undefined it cannot build
           assetFileNames: ({ name }): string =>
-            name === "style.css" ? `styles/${MODULE_NAME}.css` : name!,
+            // Forcibly rename style file so that it does not share Foundry's CSS file name
+            name === "style.css" ? `${MODULE_NAME}.css` : name!,
           chunkFileNames: "[name].mjs",
           entryFileNames: `${MODULE_NAME}.mjs`,
           manualChunks: {
