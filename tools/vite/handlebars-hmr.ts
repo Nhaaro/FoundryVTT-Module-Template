@@ -47,8 +47,8 @@ export default function handlebarsReload(): Plugin {
           logger.info(`Reload ${fileFromRoot} as ${foundryPath}`);
           server.ws.send({
             type: "custom",
-            event: "hotHandle:update",
-            data: { file: foundryPath, content },
+            event: "handlebars:update",
+            data: { file: foundryPath, content, foundryBaseDir },
           });
 
           // Also copy template to `dist` to persist the change
@@ -58,7 +58,10 @@ export default function handlebarsReload(): Plugin {
           );
           await fs.copy(file, distFile);
           logger.info(
-            `Copied ${fileFromRoot} to ${path.relative(config.root, distFile)}`
+            `Copied ${fileFromRoot} to ${distFile.replace(
+              config.build.outDir,
+              foundryBaseDir
+            )}`
           );
         }
       });
