@@ -69,33 +69,6 @@ const config = defineConfig(({ command, mode }) => {
             fs.closeSync(fs.openSync(path.resolve(outDir, "vendor.mjs"), "w"));
           },
         },
-      },
-      // Vite HMR is only preconfigured for css files: add handler for HBS templates
-      {
-        name: "hmr-handler",
-        apply: "serve",
-        handleHotUpdate(context) {
-          if (
-            context.file.endsWith(".hbs") &&
-            !context.file.startsWith(outDir)
-          ) {
-            const basePath = context.file.slice(
-              context.file.indexOf("templates/")
-            );
-            console.log(`Updating template at ${basePath}`);
-            fs.promises
-              .copyFile(context.file, `${outDir}/${basePath}`)
-              .then(() => {
-                context.server.ws.send({
-                  type: "custom",
-                  event: "template-update",
-                  data: {
-                    path: `modules/${MODULE_NAME}/${basePath}`,
-                  },
-                });
-              });
-          }
-        },
       }
     );
   }
