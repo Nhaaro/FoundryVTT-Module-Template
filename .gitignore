@@ -20,7 +20,7 @@ lerna-debug.log*
 
 # Dummy files for vite dev server
 /index.html
-/styles/#{MODULE.ID}#.css
+/#{MODULE.ID}#.css
 /#{MODULE.ID}#.mjs
 /vendor.mjs
 
