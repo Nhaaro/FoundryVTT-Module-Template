@@ -25,4 +25,21 @@ if (import.meta.hot) {
       }
     }
   );
+
+  // Handle hot reloading of handlebars templates
+  import.meta.hot.on("languages:update", ({ file, content, lang }) => {
+    if (game.i18n.lang === lang) {
+      game.i18n.translations = {
+        ...game.i18n.translations,
+        ...JSON.parse(content),
+      };
+
+      // Rerender opened applications to make use of updated localization strings
+      for (const appId in ui.windows) {
+        const window = ui.windows[appId];
+        window.render(true);
+      }
+      console.debug(`[vite] language hot updated: ${file}`);
+    }
+  });
 }
