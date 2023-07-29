@@ -18,6 +18,9 @@
     "removeComments": false,
     "sourceMap": true,
 
+    /* allows macros to infer the correct typings */
+    "allowJs": true,
+
     /* Linting */
     "strict": true,
     "strictNullChecks": true /* Enable strict null checks. */,
