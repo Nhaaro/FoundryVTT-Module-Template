@@ -37,6 +37,8 @@ dist-ssr
 # This project
 static/packs/
 foundryconfig.json
+types/foundry
+types/system
 
 # temporary files
 scratchpads
