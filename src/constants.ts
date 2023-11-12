@@ -1,1 +1,1 @@
-export const MODULE_NAME = "#{MODULE.ID}#";
+export const MODULE_NAME = '#{MODULE.ID}#';

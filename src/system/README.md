@@ -18,14 +18,14 @@ All files in this folder are taken and adapted from the Pathfinder Second Editio
 >
 > **Project Licensing:**
 >
-> - All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
+> -   All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
 >
 > **Content Usage and Licensing:**
 >
-> - Any Pathfinder Second Edition information used with permission granted by the license agreement between Paizo. Inc and Foundry Gaming LLC
-> - Game system information and mechanics are licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
-> - License information for the art used in this project is included in the ./packs/ folder alongside the JSON of where it is referenced.
+> -   Any Pathfinder Second Edition information used with permission granted by the license agreement between Paizo. Inc and Foundry Gaming LLC
+> -   Game system information and mechanics are licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
+> -   License information for the art used in this project is included in the ./packs/ folder alongside the JSON of where it is referenced.
 >
 > **Virtual Table Top Platform Licenses:**
 >
-> - This Game System for Foundry Virtual Tabletop is licensed under the [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
+> -   This Game System for Foundry Virtual Tabletop is licensed under the [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
