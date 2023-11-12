@@ -45,7 +45,7 @@ for (const key in flattenedConfig) {
             }
             break;
 
-        case 'system.path':
+        case 'system.id':
             if (config.system.path) {
                 if (!(await fs.pathExists(config.system.path))) {
                     logger.error(
@@ -55,10 +55,7 @@ for (const key in flattenedConfig) {
                     );
                     process.exit(1);
                 }
-                const manifest = await fs.readJson(
-                    `${config.system.path}/static/system.json`
-                );
-                switch (manifest.id) {
+                switch (config.system.id) {
                     case 'pf2e':
                         logger.log('Building system');
                         const pwd = process.cwd();
