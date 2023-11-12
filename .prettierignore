@@ -1,0 +1,43 @@
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dummy files for vite dev server
+/index.html
+/#{MODULE_NAME}#.css
+/#{MODULE_NAME}#.mjs
+/vendor.mjs
+
+# Foundry bundle
+foundry.js
+# Pathfinder bundle
+main.bundle.js
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# This project
+static/packs/
+types/foundry
+types/system
+
+# temporary files
+scratchpads
