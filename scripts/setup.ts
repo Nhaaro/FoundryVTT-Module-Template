@@ -81,30 +81,36 @@ for (const key in flattenedConfig) {
               "lf",
             ]);
 
-            for (const file of await fs.readdir(
-              `${config.system.path}/static/lang`
-            )) {
-              await run([
+            await Promise.all(
+              (
+                await fs.readdir(`${config.system.path}/static/lang`)
+              ).map((file) =>
+                run([
+                  "ln",
+                  "-sf",
+                  `${config.system.path}/static/lang/${file}`,
+                  `dist/types/`,
+                ])
+              )
+            );
+            await Promise.all([
+              run(["rm", "-rf", `dist/types/types`]),
+              run(["rm", "-rf", `${pwd}/types/system`]),
+              run(["rm", "-rf", `${pwd}/types/foundry`]),
+            ]);
+            await Promise.all([
+              run([
                 "ln",
                 "-sf",
-                `${config.system.path}/static/lang/${file}`,
-                `dist/types/`,
-              ]);
-            }
-            await run(["rm", "-rf", `dist/types/types`]);
-            await run(["rm", "-rf", `${pwd}/types/system`]);
-            await run(["rm", "-rf", `${pwd}/types/foundry`]);
-            await run([
-              "ln",
-              "-sf",
-              `${config.system.path}/dist/types`,
-              `${pwd}/types/system`,
-            ]);
-            await run([
-              "ln",
-              "-sf",
-              `${config.system.path}/types/foundry`,
-              `${pwd}/types/foundry`,
+                `${config.system.path}/dist/types`,
+                `${pwd}/types/system`,
+              ]),
+              run([
+                "ln",
+                "-sf",
+                `${config.system.path}/types/foundry`,
+                `${pwd}/types/foundry`,
+              ]),
             ]);
 
             break;
