@@ -1,45 +1,20 @@
 import chalk from "chalk";
 import fs from "fs-extra";
-import { resolve } from "path";
 import { registerSIGINT, run } from "./child_process.ts";
+import { flatten } from "../utils/types/flatten.ts";
 
 registerSIGINT();
 
-const configPath = resolve(process.cwd(), "foundryconfig.json");
-if (!(await fs.pathExists(configPath))) {
-  console.error(
-    `No config file found in ${chalk.bold(
-      "/home/foundry/foundrydev/modules/FoundryVtt-Module-Template/foundryconfig.json"
-    )} `
-  );
-  console.error(
-    `Copy ${chalk.bold(
-      "foundryconfig.example.json"
-    )} and replace the values with your own`
-  );
-  //TODO: make wizard to setup from script
-  process.exit(1);
-}
-
-const config = await fs.readJson(configPath, { throws: false });
-if (typeof config !== "object" || config === null) {
-  console.error(
-    `${chalk.bold(
-      "foundryconfig.json"
-    )} does not have a valid format. Make sure it follows the format of ${chalk.bold(
-      "foundryconfig.example.json"
-    )}`
-  );
-  //TODO: validate config file format
-  process.exit(1);
-}
+const config = (
+  await import("../foundryconfig.json", { assert: { type: "json" } })
+).default;
+const flattenedConfig = flatten(config);
 
 // Validate fields
-for (const key in config) {
-  const value = config[key];
-  switch (key) {
+for (const key in flattenedConfig) {
+  switch (key as keyof typeof flattenedConfig) {
     case "dataPath":
-      if (!value) {
+      if (!config.dataPath) {
         console.error(
           `No ${chalk.bold(key)} found in ${chalk.bold(
             "foundryconfig.json"
@@ -47,7 +22,7 @@ for (const key in config) {
         );
         process.exit(1);
       }
-      if (!(await fs.pathExists(value))) {
+      if (!(await fs.pathExists(config.dataPath))) {
         console.error(
           `No Data directory found in ${chalk.bold(
             config.dataPath
@@ -57,23 +32,25 @@ for (const key in config) {
       }
       break;
 
-    case "systemPath":
-      if (value) {
-        if (!(await fs.pathExists(value))) {
+    case "system.path":
+      if (config.system.path) {
+        if (!(await fs.pathExists(config.system.path))) {
           console.error(
             `No system directory found in ${chalk.bold(
-              value
+              config.system.path
             )}, verify there are no typos and that it's pointing to the right location`
           );
           process.exit(1);
         }
-        const manifest = await fs.readJson(`${value}/static/system.json`);
+        const manifest = await fs.readJson(
+          `${config.system.path}/static/system.json`
+        );
         switch (manifest.id) {
           case "pf2e":
             console.log("Building system");
             const pwd = process.cwd();
             console.log(pwd);
-            process.chdir(value);
+            process.chdir(config.system.path);
 
             await run(["npm", "run", "clean"]);
 
@@ -94,13 +71,13 @@ for (const key in config) {
             ]);
 
             for (const file of await fs.readdir(
-              `${config.systemPath}/static/lang`
+              `${config.system.path}/static/lang`
             )) {
               console.log(file);
               await run([
                 "ln",
                 "-sf",
-                `${config.systemPath}/static/lang/${file}`,
+                `${config.system.path}/static/lang/${file}`,
                 `dist/types/`,
               ]);
             }
@@ -110,13 +87,13 @@ for (const key in config) {
             await run([
               "ln",
               "-sf",
-              `${config.systemPath}/dist/types`,
+              `${config.system.path}/dist/types`,
               `${pwd}/types/system`,
             ]);
             await run([
               "ln",
               "-sf",
-              `${config.systemPath}/types/foundry`,
+              `${config.system.path}/types/foundry`,
               `${pwd}/types/foundry`,
             ]);
 
