@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import fs from "fs-extra";
+import replace from "replace-in-file";
 import { registerSIGINT, run } from "./child_process.ts";
 import { flatten } from "../utils/types/flatten.ts";
 
@@ -120,6 +121,42 @@ for (const key in flattenedConfig) {
             break;
         }
       }
+      break;
+
+    case "module.name":
+    case "module.id":
+      await replace.replaceInFile({
+        files: [
+          "static/module.json",
+          "static/languages/*.json",
+          "src/constants.ts",
+          "package.json",
+          "@types/game.d.ts",
+          ".gitignore",
+        ],
+        allowEmptyPaths: true,
+        from: new RegExp(`#\{(.+?)\}#`, "gm"),
+        countMatches: true,
+        to: (match, ...args) => {
+          const file = args[args.length - 1];
+          const m = match.match(/#\{(.+?)\}#/i);
+          if (m) {
+            const tokenName = m[1];
+            const replacement =
+              flattenedConfig[
+                tokenName.toLowerCase() as keyof typeof flattenedConfig
+              ];
+            if (replacement)
+              logger.log(
+                `Replacing tokens in ${chalk.green(file)}: ${chalk.yellow(
+                  `#{${chalk.bold(tokenName)}}#`
+                )} -> ${chalk.cyan(replacement)}`
+              );
+            return replacement || m[0];
+          }
+          return match;
+        },
+      });
       break;
   }
 }
