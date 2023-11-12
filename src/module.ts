@@ -1,4 +1,4 @@
-import "../tools/vite/hmr.ts";
+import "../utils/vite/hmr.ts";
 import "./styles/module.css";
 
 import { MODULE_NAME } from "src/constants.ts";
