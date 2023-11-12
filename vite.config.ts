@@ -6,7 +6,7 @@ import checker from 'vite-plugin-checker';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import packageJSON from './package.json' assert { type: 'json' };
-import { MODULE_NAME } from 'src/constants.ts';
+import { MODULE_NAME } from './src/constants.ts';
 import handlebarsHMR from './utils/vite/handlebars-hmr.ts';
 import languagesHMR from './utils/vite/languages-hmr.ts';
 
