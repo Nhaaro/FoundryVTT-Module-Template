@@ -113,6 +113,7 @@ for (const key in flattenedConfig) {
               ]),
             ]);
 
+            process.chdir(pwd);
             break;
 
           default:
