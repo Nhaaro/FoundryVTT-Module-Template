@@ -19,6 +19,7 @@ export function registerSIGINT() {
     spawnedProcesses.forEach(([, child]) => {
       child.kill("SIGKILL");
     });
+    process.exit(129);
   });
 }
 
