@@ -10,6 +10,8 @@
     "build:dev": "npm run build && vite",
     "preview": "vite preview",
     "clean": "git clean -fdx -e foundryconfig.json -e node_modules/",
+    "prettier": "npx prettier . --write",
+    "prettier:check": "npx prettier . --check",
     "setup": "node --loader ts-node/esm scripts/setup.ts"
   },
   "author": "Nhaaro",
@@ -35,7 +37,7 @@
     "marked": "^5.1.0",
     "postcss-nested": "^6.0.1",
     "postcss-preset-env": "^9.0.0",
-    "prettier": "^2.8.8",
+    "prettier": "2.8.8",
     "replace-in-file": "^7.0.2",
     "socket.io": "^4.7.1",
     "socket.io-client": "^4.7.1",
