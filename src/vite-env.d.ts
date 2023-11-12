@@ -3,5 +3,5 @@
 
 type Unpacked<T> = T extends (infer R)[] ? R : never;
 
-import * as handlebars from "handlebars";
+import * as handlebars from 'handlebars';
 var Handlebars: handlebars;
