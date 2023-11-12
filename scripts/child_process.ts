@@ -1,6 +1,18 @@
 import { ChildProcess, spawn } from "child_process";
 import chalk from "chalk";
 
+//TODO: merge with vite Logger util
+const prefixBase = chalk.bold("[ChildProcess]");
+const prefix = (color = chalk.green) => `${color(prefixBase)}`;
+const logger = {
+  log: (message?: any, ...optionalParams: any[]) =>
+    console.log(`${prefix()} ${message}`, ...optionalParams),
+  info: (message?: any, ...optionalParams: any[]) =>
+    console.info(`${prefix(chalk.white)} ${message}`, ...optionalParams),
+  error: (message?: any, ...optionalParams: any[]) =>
+    console.error(`${prefix(chalk.red)} ${message}`, ...optionalParams),
+};
+
 const spawnedProcesses: [string, ChildProcess][] = [];
 export function registerSIGINT() {
   process.on("SIGINT", function () {
@@ -27,32 +39,39 @@ export async function run(
     reject?: (err: Error) => void;
   } = {}
 ) {
-  const child = spawn(command, args, { stdio: "inherit" });
-
-  if (child.stdout) {
-    console.log("  ", child.stdout);
-    opts.stdout?.(child.stdout);
-  }
+  const child = spawn(command, args, {
+    shell: true,
+    env: { ...process.env, FORCE_COLOR: "true" },
+  });
 
   child.on("spawn", function () {
     spawnedProcesses.push([[command, ...args].join(" "), child]);
-    console.log(
-      chalk.blueBright.bold(`----- ${[command, ...args].join(" ")} -----`)
-    );
+    logger.log(`${[command, ...args].join(" ")}`);
     opts.onSpawn?.();
   });
-  child.on("error", function (err) {
-    console.log(err);
+
+  child.stdout?.on("data", (chunk) => {
+    chunk
+      .toString()
+      .split("\n")
+      .forEach((string: string) => logger.info(string));
+    opts.stdout?.(child.stdout);
+  });
+  child.stderr.on("data", function (err) {
+    err
+      .toString()
+      .split("\n")
+      .forEach((string: string) => logger.error(string));
     opts.onError?.(err);
   });
+
   child.on("close", function (code) {
-    console.log();
-    opts.onClose?.(code);
-    spawnedProcesses.splice(
-      spawnedProcesses.findIndex((p) => p[0] === [command, ...args].join(" ")) -
-        1,
-      1
+    const currentProcess = spawnedProcesses.findIndex(
+      (p) => p[0] === [command, ...args].join(" ")
     );
+    if (spawnedProcesses.length < 2) console.log();
+    opts.onClose?.(code);
+    spawnedProcesses.splice(currentProcess, 1);
   });
 
   return promiseFromChildProcess(child).then(
