@@ -103,17 +103,6 @@ const config = defineConfig(({ command, mode }) => {
         define: {
             BUILD_MODE: JSON.stringify(buildMode),
         },
-        resolve: {
-            alias: {
-                '@actor': path.resolve(__dirname, 'types/src/module/actor'),
-                '@item': path.resolve(__dirname, 'types/src/module/item'),
-                '@module': path.resolve(__dirname, 'types/src/module'),
-                '@scene': path.resolve(__dirname, 'types/src/module/scene'),
-                '@scripts': path.resolve(__dirname, 'types/src/scripts'),
-                '@system': path.resolve(__dirname, 'types/src/module/system'),
-                '@util': path.resolve(__dirname, 'types/src/util'),
-            },
-        },
         server: {
             port: 30001,
             open: false,
