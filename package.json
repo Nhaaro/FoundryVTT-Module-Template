@@ -48,5 +48,8 @@
     "vite-plugin-checker": "^0.6.1",
     "vite-plugin-static-copy": "^0.16.0",
     "vite-tsconfig-paths": "^4.2.0"
+  },
+  "dependencies": {
+    "@foundryvtt/foundryvtt-cli": "^1.0.3"
   }
 }
